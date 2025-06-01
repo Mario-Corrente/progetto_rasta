@@ -82,7 +82,7 @@ a:hover {                                               /* Stile per i link al p
 /* Stile per ogni "quadratino" di categoria o zona */
 .category-card {
     border: 1px solid var(--border-color); /* Usa variabile colore */
-    border-radius: 8px; /* Bordo leggermente più arrotondato */
+    border-radius: 30px; /* Bordo leggermente più arrotondato */
     overflow: hidden;
     text-align: center;
     font-size: 1.5em;

@@ -214,6 +214,8 @@ try:                                            # con try andiamo a gestire even
     # Questo loop itera su ogni categoria unica identificata nel XML. 
     # Per ogni categoria, verrà generata una pagina HTML separata.
     # tutto quello annidato in questo ciclo for è il cuore della generazione delle pagine HTML per ogni categoria.
+    # N.B.: QUESTO È IL CICLO FOR CHE ITERA SU TUTTE LE CATEGORIE UNICHE TROVATE NEL FILE XML E 
+    # GENERA PER OGNI CATEGORIA UNA PAGINA HTML SEPARATA.
 
     for category in unique_categories:    
         safe_category_name = category.lower().replace(' ', '-').replace('/', '-').replace('.', '').replace(',', '').replace(':', '').replace('(', '').replace(')', '') # questa è una semplce stringa di riformattazione dei nomi delle categorie per renderli "URL-friendly"
@@ -359,14 +361,19 @@ try:                                            # con try andiamo a gestire even
             f.write(html_content)                                            # scrive il contenuto HTML generato nel file specificato.
         print(f"Generato: {category_html_filepath}")                         # Avviso che il file HTML è stato generato correttamente
 
-    # --- Calcolo delle statistiche per il report (spostato qui e modificato per il conteggio URL) ---
-    total_events_for_report = len(all_events_data) 
+    # --- Calcolo delle statistiche per il report
+    total_events_for_report = len(all_events_data) # calcola la lunghezza della lista all_events_data per ottenere il numero totale di eventi
+                                                   # che ci serve per il calcolo delle statistiche nel report finale.
 
+    # report_elements_to_check = []  # Inizializza una lista vuota per gli elementi da controllare nel report
+    # sono gli elementi che andremo a controllare per il report finale.
     report_elements_to_check = [
         'titolo', 'descrizione', 'url', 
         'indirizzo', 'zona_prossimita', 'area_statistica', 'categoria1'
     ]
     
+    # Qui andiamo a creare un dizionario per contare gli eventi non valorizzati per ogni elemento che ci interessa.
+    # per conteggiare gli eventi non valorizzati per ogni elemento che ci interessa.
     not_valorized_defaults = {
         'titolo': 'Non disponibile',
         'descrizione': 'Nessuna descrizione disponibile',
@@ -378,37 +385,52 @@ try:                                            # con try andiamo a gestire even
         'categoria1': 'Senza Categoria'
     }
 
+    # Qui andiamo a creare un dizionario per contare gli eventi per ogni categoria
+    # per conteggiare gli eventi valorizzati per ogni elemento che ci interessa.
     element_valorized_counts = defaultdict(int)
 
+    # il ciclo for ci serve per iterare su tutti gli eventi raccolti in all_events_data
+    # per ogni elemento event_data in all_events_data, andiamo a controllare se i campi sono valorizzati o meno
+    # escludendo 'url' e 'sito_web' per ora, che gestiremo dopo in un blocco specifico.
     for event_data in all_events_data:
         # Controlla gli altri campi singolarmente, ignorando 'url' e 'sito_web' per ora
         for element_name_key, default_val in not_valorized_defaults.items():
             if element_name_key in ['url', 'sito_web']:
                 continue # Salta url e sito_web, li gestiremo dopo
             
+            # qui andiamo a gestire la corrispondenza tra il nome nello script e il nome dell'elemento XML
             xml_element_name = element_name_key
             if element_name_key == 'zona_prossimita': xml_element_name = 'zona-prossimita'
             elif element_name_key == 'area_statistica': xml_element_name = 'area-statistica'
             elif element_name_key == 'categoria1': xml_element_name = 'categoria1'
 
+            # recupera il valore effettivo dell'evento per l'elemento corrente
+            # ottiene il dato reale dell'evento da controllare per la valorizzazione
             actual_value_for_check = event_data.get(element_name_key)
 
+            # Applica una regola specifica per categoria1, distinguendo tra 
+            # la presenza di una categoria reale e il suo valore di "non categoria".
             if element_name_key == 'categoria1':
                 if actual_value_for_check != 'Senza Categoria':
                     element_valorized_counts[xml_element_name] += 1
+            # l'else per tutti gli altri campi valorizzati        
             else: # Per tutti gli altri campi con un default 'Non disponibile' o simile
                 if actual_value_for_check and actual_value_for_check != default_val:
                     element_valorized_counts[xml_element_name] += 1
 
-        # LOGICA SPECIFICA PER IL CONTEGGIO DELL'URL DELL'EVENTO (unificata)
+        # LOGICA SPECIFICA PER IL CONTEGGIO DELL'URL DELL'
         # L'URL è considerato valorizzato se url O sito_web sono validi (non vuoti e non '#')
         url_val = event_data.get('url', '')
         sito_web_val = event_data.get('sito_web', '')
 
+        # qui andiamo a vericicare se i valori di url e sito web strippati sono diversi
+        # dai valori considerabili 'nulli' (come '#' o stringhe vuote)
+        # allora aggiungiamo il conteggio all'element_valorized_counts['url']
         if (url_val and url_val.strip() != '#' and url_val.strip() != '') or \
            (sito_web_val and sito_web_val.strip() != '#' and sito_web_val.strip() != ''):
-            element_valorized_counts['url'] += 1 # Incrementa il contatore per 'url' (che rappresenta "Link Evento")
+            element_valorized_counts['url'] += 1 
     
+
     sorted_categories = sorted(events_by_category_count.items(), key=lambda item: item[1], reverse=True) 
     top_5_categories = sorted_categories[:5]      
 
@@ -419,6 +441,9 @@ try:                                            # con try andiamo a gestire even
     ############## SEZIONE REPORT GENERATO SU UNA NUOVA PAGINA HTML 
     ###########################################
 
+
+    # tutto il blocco successivo si occupa della generazione della pagina HTML 
+    # del report navigabile dall'utente, che contiene le statistiche informative e i dati raccolti dal file XML.
     report_page_content = """
     <!DOCTYPE html>
     <html lang="it">
@@ -569,8 +594,11 @@ try:                                            # con try andiamo a gestire even
         f.write(report_page_content)
     print(f"Generato: {report_filepath}")
 
+    # FINE BLOCCO GENERAZIONE DELLA PAGINA DEL REPORT
 
-    # --- Generazione Homepage (index.html) ---
+
+    # INFINE DEFINIAMO LA VAR index_html_filename CHE È QUELLA CHE GENERA 
+    # LA PAGINA HTML PRINCIPALE CHE CONTIENE I LINK ALLE PAGINE DELLE CATEGORIE E AL REPORT.
 
     index_html_filename = os.path.join(output_root_dir, 'index.html')
     index_html_content = f"""
@@ -594,7 +622,8 @@ try:                                            # con try andiamo a gestire even
             <p><a href="report.html" style="font-size: 1.5em; font-weight: normal; margin-right: 10em;"> 
             <strong><u>Clicca qui per accedere alla pagina del report</u></strong></a></p> <div class="category-grid">
     """
-    
+    #il ciclo for qui serve a generare i link alle pagine delle categorie ll'interno della pagina principale index.html
+
     for category in unique_categories:
         safe_category_name = category.lower().replace(' ', '-').replace('/', '-').replace('.', '').replace(',', '').replace(':', '').replace('(', '').replace(')', '')
         image_filename = category_images.get(safe_category_name, default_image)
@@ -619,9 +648,12 @@ try:                                            # con try andiamo a gestire even
     ############# FINE GENERAZIONE DELLA HOMEPAGE ##################
 
     # Scrivi il contenuto HTML generato nel file index.html
-    with open(index_html_filename, 'w', encoding='utf-8') as f:
-        f.write(index_html_content)
-    print(f"\nGenerato il file indice: {index_html_filename}")
+    # QUESTO È IL FULCRO DELLA GENERAZIONE VERA E PROPRIA DEI FILE
+
+    with open(index_html_filename, 'w', encoding='utf-8') as f: # open è una funzione built-in di Python che apre un file. index_html_filename è il percorso del file HTML che stiamo creando.
+                                                                # 'w' indica che vogliamo scrivere nel file.
+        f.write(index_html_content)                             # f.write prende come argomento la stringa (nel nostro caso index_html_content) e lo scrive all'interno del file che abbiamo 'aperto'
+    print(f"\nGenerato il file indice: {index_html_filename}")                          # semplici print di avviso per l'utente che il file HTML è stato generato correttamente.
     print("\nProcesso di generazione delle pagine HTML completato!")
     print(f"Puoi aprire '{index_html_filename}' nella cartella '{output_root_dir}' nel tuo browser per iniziare la navigazione.")
 
@@ -631,3 +663,9 @@ except etree.XMLSyntaxError as e:
     print(f"ERRORE DI SINTASSI XML: Il file XML ha problemi di sintassi e non può essere parsificato. Dettagli: {e}")
 except Exception as e:
     print(f"Si è verificato un errore imprevisto: {e}")
+
+
+    # Generiamo prima le singole pagine html per le categorie perché per la homepage ci servono tutti i link
+    # da richiamare nella homepage, poi scriviamo separatamente la pagina del report e infine
+    # scriviamo la homepage che contiene tutti i ref delle pagine generate per le singole categorie
+    # e per la pagina del report.
