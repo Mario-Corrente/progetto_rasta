@@ -1,0 +1,179 @@
+
+    <!DOCTYPE html>
+    <html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Report e Statistiche Dettagliate - Progetto RASTA</title>
+        <link rel="stylesheet" href="style.css"> 
+    </head>
+    <body>
+        <div class="container">
+            <h1>Report e Statistiche Dettagliate</h1>
+            <p><a href="index.html"> <b><u>Clicca qui per tornare all'indice delle categorie</u></b></a></p>
+            <p>Questa pagina di report fornisce un'analisi dei dati dal file madre XML.  
+            L'obiettivo è offrire al lettore una panoramica dei dati estratti dall'XML.</p>
+            
+            <div class="general-stats">
+                <h3>Statistiche Generali sugli Eventi:</h3>
+    <p><strong>Numero totale di eventi:</strong> 22618</p>
+<p><strong>Numero di categorie uniche:</strong> 28</p>
+<p><strong>Numero di zone di prossimità:</strong> 27</p>
+
+            <div class="statistics-section xml-overview">
+                <h3>Panoramica della Struttura XML</h3>
+                <p>Il file originale era un json convertito in XML. Ogni evento è racchiuso nel tag <code>&lt;evento&gt;</code> e contiene diversi elementi figli che racchiudono le informazioni.</p>
+                <p>Di seguito viene riportato un esempio di elemento <code>&lt;evento&gt;</code> con i suoi elementi figli:</p>
+                <pre class="xml-snippet"><code>&lt;evento id="423201"&gt;
+&lt;titolo&gt;Oksana Lyniv e Yuri Laniuk&lt;/titolo&gt;
+&lt;descrizione&gt;Stagione Sinfonica 2023&lt;/descrizione&gt;
+&lt;url&gt;https://culturabologna.it/events/423201&lt;/url&gt;
+&lt;indirizzo&gt;Via de' Monari 2 Bologna&lt;/indirizzo&gt;
+&lt;categoria1&gt;musica&lt;/categoria1&gt;
+&lt;categoria2/&gt;
+&lt;categoria3/&gt;
+&lt;online&gt;NO&lt;/online&gt;
+&lt;data-inizio&gt;2023-12-07&lt;/data-inizio&gt;
+&lt;data-fine/&gt;
+&lt;date-multiple/&gt;
+&lt;bologna-estate&gt;NO&lt;/bologna-estate&gt;
+&lt;quartiere&gt;Porto - Saragozza&lt;/quartiere&gt;
+&lt;area-metropolitana&gt;NO&lt;/area-metropolitana&gt;
+&lt;zona-prossimita&gt;MALPIGHI&lt;/zona-prossimita&gt;
+&lt;area-statistica&gt;MARCONI-1&lt;/area-statistica&gt;
+&lt;/evento&gt;
+
+</code></pre>
+                <p>I campi principali che vengono estratti e analizzati sono:</p>
+                <ul>
+                    <li><code>&lt;titolo&gt;</code>: titolo dell'evento.</li>
+                    <li><code>&lt;descrizione&gt;</code>: descrizione dell'evento.</li>
+                    <li><code>&lt;url&gt;</code>: Link al sito web dell'evento.</li> 
+                    <li><code>&lt;data-inizio&gt;</code> e <code>&lt;data-fine&gt;</code>: Date di inizio e fine dell'evento.</li>
+                    <li><code>&lt;indirizzo&gt;</code>: indirizzo della location dell'evento.</li>
+                    <li><code>&lt;zona-prossimita&gt;</code> e <code>&lt;area-statistica&gt;</code>: quartiere di riferimento.</li>
+                    <li><code>&lt;categoria1&gt;</code>: Categoria di riferimento dell'evento (es. Musica, arte, mostre ecc.) .</li>
+                </ul>
+            </div>
+    
+            <div class="statistics-section">
+                <h3>Le 5 categorie con più eventi:</h3>
+                <ul class="stat-list">
+    <li><b>incontri</b> <span>(6964 eventi)</span></li>
+<li><b>musica</b> <span>(6276 eventi)</span></li>
+<li><b>spettacoli</b> <span>(4619 eventi)</span></li>
+<li><b>cinema</b> <span>(1449 eventi)</span></li>
+<li><b>mostre</b> <span>(915 eventi)</span></li>
+</ul></div>
+
+            <div class="statistics-section">
+                <h3>I 5 quartieri con più eventi:</h3>
+                <ul class="stat-list">
+    <li><b>GALVANI</b> <span>(4098 eventi)</span></li>
+<li><b>IRNERIO</b> <span>(3429 eventi)</span></li>
+<li><b>MALPIGHI</b> <span>(2617 eventi)</span></li>
+<li><b>Fuori Bologna</b> <span>(2411 eventi)</span></li>
+<li><b>BOLOGNINA</b> <span>(2051 eventi)</span></li>
+</ul></div>
+
+            <div class="statistics-section">
+                <h3>Completezza e Valorizzazione degli Elementi per Evento:</h3>
+                <p>Questa sezione mostra la percentuale di eventi in relazione alla totalità degli eventi presenti nel file originale.</p>
+    <div class="valorization-items">
+
+            <div class="progress-item">
+                <span class="field-label">Area Statistica: <strong>22426/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 99.15%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">99%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Area Statistica" (<code class="tag-name">&lt;area-statistica&gt;</code>)</h4>
+                <p>Un campo aggiuntivo per raggruppamenti territoriali o statistici, specifico per analisi.</p>
+            </div>
+            
+            <div class="progress-item">
+                <span class="field-label">Categoria Principale: <strong>22618/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 100.00%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">100%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Categoria Principale" (<code class="tag-name">&lt;categoria1&gt;</code>)</h4>
+                <p>La macro-categoria principale a cui appartiene l'evento, usata per la navigazione.</p>
+            </div>
+            
+            <div class="progress-item">
+                <span class="field-label">Descrizione Dettagliata: <strong>22600/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 99.92%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">100%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Descrizione Dettagliata" (<code class="tag-name">&lt;descrizione&gt;</code>)</h4>
+                <p>Fornisce i dettagli completi dell'evento, essenziale per informare gli utenti.</p>
+            </div>
+            
+            <div class="progress-item">
+                <span class="field-label">Indirizzo Specifico: <strong>21682/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 95.86%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">96%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Indirizzo Specifico" (<code class="tag-name">&lt;indirizzo&gt;</code>)</h4>
+                <p>L'indirizzo completo del luogo dell'evento, cruciale per la navigazione.</p>
+            </div>
+            
+            <div class="progress-item">
+                <span class="field-label">Titolo Evento: <strong>22618/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 100.00%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">100%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Titolo Evento" (<code class="tag-name">&lt;titolo&gt;</code>)</h4>
+                <p>Il titolo è l'elemento più visibile e serve a identificare immediatamente l'evento.</p>
+            </div>
+            
+            <div class="progress-item">
+                <span class="field-label">Link Evento: <strong>22616/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 99.99%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">100%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Link Evento" (<code class="tag-name">&lt;url&gt;</code>)</h4>
+                <p>Il link diretto alla pagina originale dell'evento o al sito web dell'organizzatore per maggiori dettagli.</p>
+            </div>
+            
+            <div class="progress-item">
+                <span class="field-label">Zona di Prossimità: <strong>22618/22618</strong></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 100.00%; background-color: #28a745;"></div>
+                </div>
+                <span class="percentage-text">100%</span>
+            </div>
+            <div class="field-analysis">
+                <h4>Analisi Campo "Zona di Prossimità" (<code class="tag-name">&lt;zona-prossimita&gt;</code>)</h4>
+                <p>Indica la zona o il quartiere di prossimità dell'evento, utile per raggruppamenti geografici.</p>
+            </div>
+            
+                </div> </div>
+    
+            <div class="statistics-section about-section">
+                <h3>Informazioni sul Report e Metodologia</h3>
+                <p>Questo sito web e le statistiche presentate sono generati automaticamente da uno script Python. L'obiettivo è trasformare dati XML grezzi sugli eventi in un'interfaccia web navigabile e fornire metriche sulla completezza e qualità del dataset.</p>
+                <p>Lo script esegue il parsing del file <code>eventi_bologna.xml</code>, raggruppa gli eventi per macroarea e zona di prossimità, e genera pagine HTML statiche collegate tra loro. Il report di valorizzazione calcola la presenza di dati chiave in ciascun evento per fornire una panoramica sullo stato del dataset.</p>
+            </div>
+    
+        </div>
+    </body>
+    </html>
+    

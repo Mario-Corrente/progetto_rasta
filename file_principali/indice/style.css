@@ -1,0 +1,461 @@
+/* in questo blocchetto iniziale andiamo a definire le variabili CSS per i colori e gli stili generali */
+/* è come se definissimo una sorta di custom palette python da riusare poi nei vari elementi del css */
+:root {
+    --primary-color: #000000; /*  primario */
+    --secondary-color: #000000; /*  secondario */
+    --accent-color: #28a745; /* Verde per elementi positivi (usato per barre progresso alte) */
+    --warning-color: #ffc107; /* Giallo per avvisi (usato per barre progresso medie) */
+    --danger-color: #dc3545; /* Rosso per problemi (usato per barre progresso basse) */
+    --light-bg: #6c757d; /* Sfondo chiaro */
+    --dark-text: #000000; /* Testo scuro */
+    --border-color: #010101; /* Colore del bordo */
+    --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
+    /* Nuove variabili per sezioni report per consistenza */
+    --report-section-bg: #3883c4; /* Sfondo generale per sezioni report */
+    --report-section-border: #b3e0ed; /* Bordo generale per sezioni report */
+    --report-heading-color: #000000; /* Colore titoli sezioni report */
+    --xml-section-bg: #bbc5ce; /* Sfondo per sezione XML */
+    --xml-section-border: #faebcc; /* Bordo per sezione XML */
+    --xml-heading-color: #060606; /* Colore titolo sezione XML */
+    --code-bg: #060606; /* Sfondo per blocchi di codice */
+    --code-text: #6c757d; /* Testo per blocchi di codice */
+    --inline-code-bg: rgba(0, 0, 0, 0.05); /* Sfondo per codice inline */
+    --inline-code-text: #060606; /* Testo per codice inline */
+}
+
+/* Stile base per il corpo della pagina */
+body {
+    font-family: 'Courier New', monospace, Arial, sans-serif; /* Font leggermente più moderno */
+    margin: 0;                                      /* Rimuovi margine predefinito */
+    padding: 20px;                                      /* il padding è il margine interno */
+    background-color: var(--light-bg);                  /* Sfondo chiaro per il corpo */
+    color: var(--dark-text);
+    line-height: 1.6;
+    scroll-behavior: smooth; /* Scorrimento fluido cioè */
+}
+
+/* Stile per il contenitore principale per centrare il contenuto e dare margini */
+.container {
+    max-width: 1700px;                          /* Larghezza massima per il contenuto */
+    margin: 20px auto;                          /* Margine automatico per centrare */
+    background-color: #bbc5ce;                /* Sfondo per il contenitore */
+    padding: 30px;                              /* Padding interno per il contenitore */        
+    border-radius: 8px;                         /* Bordo arrotondato per il contenitore */
+    box-shadow: var(--box-shadow);              /* Ombra leggera per il contenitore */
+}
+
+h1, h2, h3 {                                            /* Stili per i titoli */
+    color: var(--primary-color);                        /* Colore primario per i titoli */
+    margin-bottom: 15px;                                /* Margine inferiore per i titoli */
+    border-bottom: 1px solid var(--border-color); /* Separatore per i titoli (NUOVO) */
+    padding-bottom: 10px;
+}
+
+h1 { font-size: 2.5em; }                            /* Dimensione del titolo principale */
+h2 { font-size: 2em; }                              /* Dimensione del titolo secondario */
+h3 { font-size: 1.5em; }                            /* Dimensione del titolo terziario */
+
+p {
+    margin-bottom: 10px;                                /* Margine inferiore per i paragrafi */
+}
+
+a {                                                     /* Stile per i link */              
+    color: var(--primary-color);                        /* Colore primario per i link */
+    text-decoration: none;                              /* Rimuovi sottolineatura predefinita */
+    transition: color 0.3s ease;                        /* Transizione colore link (NUOVO) */
+}
+
+a:hover {                                               /* Stile per i link al passaggio del mouse */      
+    text-decoration: underline;                         /* Sottolineatura al passaggio del mouse */
+    color: #0056b3;                                   /* Tonalità più scura all'hover (NUOVO) */
+}
+
+/* Stile per la griglia delle categorie nell'index.html e nelle pagine categoria */
+.category-grid {                                        /* Griglia per le categorie */
+    display: grid;                                          /* Usa grid layout per le categorie questo è un valore standard */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));               
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Stile per ogni "quadratino" di categoria o zona */
+.category-card {
+    border: 1px solid var(--border-color); /* Usa variabile colore */
+    border-radius: 8px; /* Bordo leggermente più arrotondato */
+    overflow: hidden;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transizioni aggiuntive */
+    display: flex; /* Usa flexbox per allineamento */
+    flex-direction: column; /* Impila elementi verticalmente */
+    justify-content: flex-end; /* Allinea il contenuto in basso */
+    position: relative;
+    aspect-ratio: 1; /* Rende il riquadrino quadrato */
+    color: var(--dark-text); /* Colore testo più scuro */
+    box-shadow: var(--box-shadow); /* Ombra leggera */
+}
+
+.category-card:hover {                              /* Stile al passaggio del mouse */
+    transform: translateY(-5px) scale(1.02); /* Effetto più pronunciato (NUOVO) */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più intensa (NUOVO) */
+    border-color: var(--primary-color); /* Bordo colorato all'hover (NUOVO) */
+}
+
+/* Stile specifico per le card delle zone (NUOVO) */
+/*.category-card.zone-card {
+    /* Puoi aggiungere stili specifici qui se le zone devono apparire diverse */
+/*}
+
+/* Stile per le immagini all'interno dei quadratini delle categorie/zone */
+.category-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mantiene cover per un bell'effetto sfondo */
+    border-radius: 8px; /* Arrotonda anche l'immagine (NUOVO) */
+    margin: 0;
+    z-index: 0;
+    filter: brightness(0.7); /* Rendi l'immagine più scura per migliorare la leggibilità del testo (NUOVO) */
+    transition: filter 0.3s ease; /* Transizione per il filtro (NUOVO) */
+}
+
+.category-card:hover img {
+    filter: brightness(0.8); /* Leggermente meno scura all'hover (NUOVO) */
+}
+
+/* Stile per il testo della categoria (sarà posizionato sopra l'immagine) */
+.category-card span {
+    position: relative; /* Rimuovi absolute, gestito da flexbox (NUOVO) */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 15px;
+    font-size: 0.8em;
+    text-align: center;
+    z-index: 1;
+    font-weight: bold;
+    border-bottom-left-radius: 8px; /* Arrotonda angoli inferiori (NUOVO) */
+    border-bottom-right-radius: 8px; /* Arrotonda angoli inferiori (NUOVO) */
+}
+
+
+/* Stile per la lista di eventi all'interno delle pagine di categoria */
+.events-list {
+    margin-top: 30px;
+    display: grid;
+    gap: 25px;
+}
+
+/* Stile per ogni "card" di dettaglio evento */
+.event-detail-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color); /* Usa variabile colore (NUOVO) */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--box-shadow); /* Ombra leggera (NUOVO) */
+    transition: transform 0.2s ease; /* Piccola animazione all'hover (NUOVO) */
+}
+
+.event-detail-card:hover {
+    transform: translateY(-2px); /* Sposta leggermente verso l'alto all'hover (NUOVO) */
+}
+
+.event-detail-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: none; /* Rimuovi bordo per i titoli interni (NUOVO) */
+    padding-bottom: 0;
+}
+
+.event-detail-card strong {
+    color: var(--secondary-color); /* Colore più neutro (NUOVO) */
+}
+
+/* --- NUOVI STILI PER STATISTICHE E REPORT ESTESO --- */
+
+.statistics-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color); /* Bordo tratteggiato */
+    background-color: #7190aa; /* Sfondo coerente */
+    border: 1px solid var(--report-section-border);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: var(--box-shadow);
+}
+
+.statistics-section h2, .statistics-section h3 {
+    color: var(--report-heading-color); /* Colore titoli coerente */
+    border-bottom: 2px solid var(--report-section-border); /* Separatore per i titoli */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Stile generale per le liste di statistiche (es. top 5 categorie/zone) */
+.stat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+.stat-list li {
+    background-color: white; /* Sfondo più chiaro (NUOVO) */
+    border: 1px solid var(--border-color); /* Usa variabile colore (NUOVO) */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 12px 18px; /* Padding leggermente aumentato (NUOVO) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Ombra sottile (NUOVO) */
+}
+
+.stat-list li span {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Stili per le barre di progresso (Visualizzazione Migliorata) */
+.valorization-items {
+    display: grid; /* Griglia per organizzare le barre (NUOVO) */
+    grid-template-columns: 1fr; /* Una colonna di default (NUOVO) */
+    gap: 25px; /* Spazio tra gli elementi (NUOVO) */
+    margin-top: 20px;
+}
+
+.progress-item {
+    display: flex;
+    flex-wrap: wrap; /* Permetti al contenuto di andare a capo (NUOVO) */
+    align-items: center;
+    margin-bottom: 5px; /* Spazio tra diverse barre di progresso */
+    background-color: #fefefe; /* Sfondo bianco per ogni item (NUOVO) */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color); /* Bordo (NUOVO) */
+    box-shadow: var(--box-shadow); /* Ombra leggera (NUOVO) */
+}
+
+.field-label { /* Etichetta del campo (NUOVO) */
+    flex: 1 1 180px; /* Cresce ma ha una base di 180px */
+    margin-right: 20px;
+    font-weight: bold;
+    color: var(--dark-text);
+    font-size: 1.1em;
+}
+
+.progress-bar-container {
+    flex: 2 1 250px; /* Cresce ma ha una base di 250px */
+    height: 22px; /* Altezza leggermente aumentata (NUOVO) */
+    background-color: #e9ecef; /* Colore di sfondo della barra (NUOVO) */
+    border-radius: 11px; /* Arrotondamento (NUOVO) */
+    overflow: hidden;
+    margin-top: 0; /* Rimuovi margin-top */
+    display: flex; /* Usa flex per centrare il testo interno se lo aggiungi (NUOVO) */
+    align-items: center;
+}
+
+.progress-bar {
+    height: 100%;
+    /* Il background-color ora è impostato dinamicamente nel Python (accent-color, warning-color, danger-color) */
+    border-radius: 11px;
+    text-align: right;
+    color: white;
+    font-size: 0.8em;
+    line-height: 22px;
+    transition: width 0.5s ease-out, background-color 0.3s ease; /* Transizione anche per colore (NUOVO) */
+    padding-right: 5px; /* Spazio per testo interno (NUOVO) */
+    box-sizing: border-box; /* Include padding nel width */
+}
+
+.percentage-text {
+    font-weight: bold;
+    color: var(--dark-text); /* Colore testo (NUOVO) */
+    margin-left: 15px; /* Spazio aumentato (NUOVO) */
+    flex-shrink: 0; /* Non si restringe (NUOVO) */
+    min-width: 45px; /* Larghezza minima (NUOVO) */
+    text-align: right;
+}
+
+/* Stili per l'analisi dettagliata di ogni campo (NUOVO) */
+.field-analysis {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    grid-column: 1 / -1; /* Occupa tutta la larghezza nella griglia (NUOVO) */
+    font-size: 0.9em;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+.field-analysis h4 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted var(--border-color);
+    padding-bottom: 5px;
+}
+
+.field-analysis p {
+    margin-bottom: 8px;
+}
+
+.field-analysis strong {
+    color: var(--primary-color);
+}
+
+.tag-name { /* Stile per i nomi dei tag XML nel testo (NUOVO) */
+    font-family: 'Courier New', monospace;
+    background-color: var(--inline-code-bg);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: var(--inline-code-text);
+}
+
+/* Stili per le statistiche generali (periodo, durata media, costi) */
+.general-stats p {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.general-stats strong {
+    color: var(--primary-color);
+}
+
+/* Stile per la panoramica XML (NUOVO) */
+.xml-overview {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+    background-color: var(--xml-section-bg); /* Colore diverso per la sezione XML */
+    border-color: var(--xml-section-border);
+}
+
+.xml-overview h3 {
+    color: var(--xml-heading-color); /* Colore del testo per la sezione XML */
+    border-bottom-color: var(--xml-section-border);
+}
+
+/* .xml-overview code {
+    font-family: 'Courier New', monospace;
+    background-color: var(--inline-code-bg);
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: greenyellow;
+} */
+
+.xml-snippet { /* Blocco per lo snippet XML (NUOVO) */
+    background-color: var(--code-bg); /* Sfondo scuro per il codice */
+    color: greenyellow; /* Testo chiaro */
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto; /* Scroll orizzontale se il codice è lungo */
+    font-family: 'Times new roman', monospace;
+    font-size: 1em;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    white-space: pre; /* Mantiene la formattazione del codice */
+}
+
+/* Stile per la sezione About (NUOVO) */
+.about-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: var(--secondary-color);
+    background-color: var(--report-section-bg); /* Sfondo coerente */
+    border-color: var(--report-section-border);
+}
+
+.about-section h3 {
+    color: var(--report-heading-color);
+    border-bottom-color: var(--report-section-border);
+}
+
+/* --- Media Queries per la Responsività (NUOVO) --- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        margin: 10px auto;
+        padding: 20px;
+    }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.7em; }
+    h3 { font-size: 1.3em; }
+
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Riduci dimensione card */
+        gap: 15px;
+    }
+
+    .category-card {
+        min-height: 150px;
+    }
+
+    .field-label {
+        flex: 1 1 100%; /* Su schermi piccoli, etichetta va su riga separata */
+        margin-bottom: 5px;
+    }
+
+    .progress-bar-container {
+        flex: 2 1 100%; /* Barra occupa tutta la larghezza */
+    }
+
+    .percentage-text {
+        margin-top: 10px;
+        width: 100%; /* Percentuale sotto la barra */
+        text-align: left;
+    }
+    
+    .progress-item {
+        flex-direction: column; /* Impila elementi verticalmente */
+        align-items: flex-start; /* Allinea a sinistra */
+    }
+
+    .field-analysis {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-grid {
+        grid-template-columns: 1fr; /* Una sola colonna su schermi molto piccoli */
+    }
+    .category-card span {
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+    .event-detail-card {
+        padding: 15px;
+    }
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+}
+
+.button:hover {
+    background-color: #45a049;
+}

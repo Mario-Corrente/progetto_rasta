@@ -1,0 +1,36 @@
+<!ELEMENT eventi (evento+)>
+<!ELEMENT evento (
+    titolo,
+    descrizione,
+    url,
+    indirizzo,
+    categoria1,
+    categoria2?,
+    categoria3?,
+    online,
+    data-inizio,
+    data-fine?,
+    date-multiple?,
+    bologna-estate,
+    quartiere?,
+    area-metropolitana,
+    zona-prossimita?,
+    area-statistica?
+)>
+<!ATTLIST evento id CDATA #REQUIRED>
+<!ELEMENT titolo (#PCDATA)>
+<!ELEMENT descrizione (#PCDATA)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT indirizzo (#PCDATA)>
+<!ELEMENT categoria1 (#PCDATA)>
+<!ELEMENT categoria2 (#PCDATA)>
+<!ELEMENT categoria3 (#PCDATA)>
+<!ELEMENT online (#PCDATA)>
+<!ELEMENT data-inizio (#PCDATA)>
+<!ELEMENT data-fine (#PCDATA)>
+<!ELEMENT date-multiple (#PCDATA)>
+<!ELEMENT bologna-estate (#PCDATA)>
+<!ELEMENT quartiere (#PCDATA)>
+<!ELEMENT area-metropolitana (#PCDATA)>
+<!ELEMENT zona-prossimita (#PCDATA)>
+<!ELEMENT area-statistica (#PCDATA)>
