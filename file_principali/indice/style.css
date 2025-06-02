@@ -26,7 +26,7 @@
 
 /* Stile base per il corpo della pagina */
 body {
-    font-family: 'Courier New', monospace, Arial, sans-serif; /* Font leggermente più moderno */
+    font-family: 'ui-serif'; /* Font leggermente più moderno */
     margin: 0;                                      /* Rimuovi margine predefinito */
     padding: 20px;                                      /* il padding è il margine interno */
     background-color: var(--light-bg);                  /* Sfondo chiaro per il corpo */
@@ -87,7 +87,7 @@ a:hover {                                               /* Stile per i link al p
     border-radius: 30px; /* Bordo leggermente più arrotondato */
     overflow: hidden;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     text-decoration: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transizioni aggiuntive */
@@ -181,7 +181,7 @@ a:hover {                                               /* Stile per i link al p
     color: var(--secondary-color); /* Colore più neutro (NUOVO) */
 }
 
-.report-line {
+.linea-report {
     margin-top: 100px;
     font-size: 1.5em; 
     font-weight: normal; 
@@ -388,7 +388,7 @@ a:hover {                                               /* Stile per i link al p
     font-size: 0.95em;
     line-height: 1.5;
     color: var(--secondary-color);
-    background-color: var(--report-section-bg); /* Sfondo coerente */
+    background-color: #7190aa; /* Sfondo coerente */
     border-color: var(--report-section-border);
 }
 

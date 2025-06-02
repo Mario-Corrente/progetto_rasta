@@ -63,7 +63,7 @@ try:                                            # con try andiamo a gestire even
         # Prendi l'XML del primo evento e lo formatti per la visualizzazione
         xml_example_snippet = etree.tostring(first_event_elem[0], pretty_print=True, encoding='unicode') # etree.tostring() converte l'elemento XML in una stringa formattata, con pretty_print=True per renderlo più leggibile
                                                                                                          # e first_event_elem[0] è il primo elemento trovato, [0] serve a prendere il primo elemento della lista restituita da xpath (questo verrà utilizzato nel report)
-        xml_example_snippet = "\n".join([line.lstrip() for line in xml_example_snippet.split('\n')])     # questa riga serve a rimuovere gli spazi iniziali da ogni riga dell'XML per renderlo più leggibile nel report finale
+     #   xml_example_snippet = "\n".join([line.lstrip() for line in xml_example_snippet.split('\n')])     # questa riga serve a rimuovere gli spazi iniziali da ogni riga dell'XML per renderlo più leggibile nel report finale
 
         # IL SUCCESSIVO CICLO FOR È IL CUORE DELLA GENERAZIONE DELLE PAGINE HTML
     
@@ -211,8 +211,10 @@ try:                                            # con try andiamo a gestire even
         'visite-guidate': 'Visite guidate',
     }
 
+    ###################################################
+    #  BLOCCO PER GENERAZIONE DELLE SINGOLE PAGINE PER CATEGORIA
+    ###################################################
 
-    # --- GENERA PAGINE HTML PER LE CATEGORIE ---
     # Questo loop itera su ogni categoria unica identificata nel XML. 
     # Per ogni categoria, verrà generata una pagina HTML separata.
     # tutto quello annidato in questo ciclo for è il cuore della generazione delle pagine HTML per ogni categoria.
@@ -356,19 +358,25 @@ try:                                            # con try andiamo a gestire even
         </body>
         </html>
         """
-        # Qui chiudiamo il blocco principale della pagina HTML per le singole categorie.   
+    ###################################################
+    # FINE BLOCCO GENERAZIONE DELLE PAGINE HTML PER CATEGORIA
+    ###################################################
         
         # e qui andiamo a scrivere il contenuto HTML generato nel file specificato.
         with open(category_html_filepath, 'w', encoding='utf-8') as f:       # questa riga serve a scrivere il contenuto HTML nel file
             f.write(html_content)                                            # scrive il contenuto HTML generato nel file specificato.
         print(f"Generato: {category_html_filepath}")                         # Avviso che il file HTML è stato generato correttamente
 
-    # --- Calcolo delle statistiche per il report
+    ###################################################
+    # BLOCCO PER CALCOLO DELLE STATISTICHE PER LA PAGINA REPORT
+    ###################################################
+
     total_events_for_report = len(all_events_data) # calcola la lunghezza della lista all_events_data per ottenere il numero totale di eventi
                                                    # che ci serve per il calcolo delle statistiche nel report finale.
 
     # report_elements_to_check = []  # Inizializza una lista vuota per gli elementi da controllare nel report
     # sono gli elementi che andremo a controllare per il report finale.
+
     report_elements_to_check = [
         'titolo', 'descrizione', 'url', 
         'indirizzo', 'zona_prossimita', 'area_statistica', 'categoria1'
@@ -376,6 +384,7 @@ try:                                            # con try andiamo a gestire even
     
     # Qui andiamo a creare un dizionario per contare gli eventi non valorizzati per ogni elemento che ci interessa.
     # per conteggiare gli eventi non valorizzati per ogni elemento che ci interessa.
+
     not_valorized_defaults = {
         'titolo': 'Non disponibile',
         'descrizione': 'Nessuna descrizione disponibile',
@@ -439,10 +448,9 @@ try:                                            # con try andiamo a gestire even
     sorted_zones_by_count = sorted(zone_event_counts.items(), key=lambda item: item[1], reverse=True)
     top_5_zones = sorted_zones_by_count[:5]
 
-    ###########################################
-    ############## SEZIONE REPORT GENERATO SU UNA NUOVA PAGINA HTML 
-    ###########################################
-
+    ###################################################
+    # SEZIONE REPORT GENERATO SU UNA NUOVA PAGINA HTML 
+    ###################################################
 
     # tutto il blocco successivo si occupa della generazione della pagina HTML 
     # del report navigabile dall'utente, che contiene le statistiche informative e i dati raccolti dal file XML.
@@ -596,8 +604,9 @@ try:                                            # con try andiamo a gestire even
         f.write(report_page_content)
     print(f"Generato: {report_filepath}")
 
+    ###################################################
     # FINE BLOCCO GENERAZIONE DELLA PAGINA DEL REPORT
-
+    ###################################################
 
     # INFINE DEFINIAMO LA VAR index_html_filename CHE È QUELLA CHE GENERA 
     # LA PAGINA HTML PRINCIPALE CHE CONTIENE I LINK ALLE PAGINE DELLE CATEGORIE E AL REPORT.
@@ -638,7 +647,7 @@ try:                                            # con try andiamo a gestire even
         """
     
     index_html_content += """
-            </div> <a href="report.html" class="report-line"> 
+            </div> <a href="report.html" class="linea-report"> 
                 <strong><u>Clicca qui per accedere alla pagina del report</u></strong> 
             </a>
         </div> </body>
