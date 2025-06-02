@@ -87,7 +87,7 @@ def convert_json_to_xml(json_file_path, xml_file_path):                     # qu
     print(f"Conversione completata! Il file XML è stato salvato come '{xml_file_path}'")
 
 # Percorsi dei file (mantenuti)
-BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/'
+BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
 json_input_file = os.path.join(BASE_DIR, 'eventi_bologna.json')
 xml_output_file = os.path.join(BASE_DIR, 'eventi_bologna.xml')
 

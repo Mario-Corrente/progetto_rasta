@@ -2,7 +2,7 @@ from lxml import etree
 import os
 
 # Definisci i percorsi dei tuoi file
-BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/'
+BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
 xml_file_path = os.path.join(BASE_DIR, 'eventi_bologna.xml')
 
 print(f"Tentativo di estrazione categorie uniche dal file XML: {xml_file_path}\n")

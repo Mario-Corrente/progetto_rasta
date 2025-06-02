@@ -35,7 +35,7 @@ print(f"Tentativo di generazione pagine HTML dal file XML: {xml_file_path}\n")
 try:                                            # con try andiamo a gestire eventuali errori che possono verificarsi durante la parsificazione del file XML
     tree = etree.parse(xml_file_path)           # Questa riga è quella che ci permette di parsificare il file XML e creare un albero di elementi ed evidenziare se dovessero esserci problemi di formattazione o sintassi
     root = tree.getroot()                       # ottiene l'elemento radice dell'albero XML
-    print("File XML parsificato con successo.\n")       # se il file XML è parsificato correttamente, stampa un messaggio di successo
+    print("File XML parsificato con successo.\n")       # se il file XML viene parsificato correttamente, stampa un messaggio di successo
 
     events_by_category_count = defaultdict(int)         # fondamentalmente è un dizionario che conterà gli eventi per categoria. (int) per inizializzare lo 0, potremmo anche inserire (list) per inizializzare una lista vuota, ma in questo caso non ci serve
     events_by_category_and_zona = defaultdict(lambda: defaultdict(list))  # invece qui usiamo (list) per inizializzare una lista vuota per suddividere gli eventi prima per categoria e poi per zona di prossimità
@@ -65,11 +65,11 @@ try:                                            # con try andiamo a gestire even
                                                                                                          # e first_event_elem[0] è il primo elemento trovato, [0] serve a prendere il primo elemento della lista restituita da xpath (questo verrà utilizzato nel report)
         xml_example_snippet = "\n".join([line.lstrip() for line in xml_example_snippet.split('\n')])     # questa riga serve a rimuovere gli spazi iniziali da ogni riga dell'XML per renderlo più leggibile nel report finale
 
-        # il successivo ciclo for è il fulcro dell'estrazione dei dati dal file XML.
+        # IL SUCCESSIVO CICLO FOR È IL CUORE DELLA GENERAZIONE DELLE PAGINE HTML
     
     for event_elem in root.xpath('//evento'):   # Itera su ogni elemento <evento> trovato nel file XML. Ad ogni iterazione, event_elem diventa l'oggetto lxml che rappresenta l'evento corrente
-                                                # se l'elemento radice dovesse cambiare da <evento> a <programma>, basterà cambiare il nome dell'elemento qui
-        event_data = {}                         # creiamo un dizionario per memorizzare i dati dell'evento corrente al fine di inserire i dati in un file HTML
+                                                # se l'elemento radice dovesse cambiare da <evento> a <programma>, basterà cambiare il nome dell'elemento qui.
+        event_data = {}                         # Creiamo un dizionario per memorizzare i dati dell'evento corrente al fine di inserire i dati in un file HTML
         
         # nel blocco successivo andiamo a inserire nel dizionario event_data tutti gli elementi figli di <evento> che ci interessano, con un controllo per evitare errori se l'elemento non esiste (in realtà il controllo sarebbe superfluo perché abbiamo fatto un preprocessing dei dati)
         # tuttavia, per un codice ''sostenibile'' è consigliabile inserire il controllo con l'else per evitare errori di KeyError se l'elemento non esiste nel file XML.
@@ -140,7 +140,8 @@ try:                                            # con try andiamo a gestire even
     # che associano un nome di categoria/zona (usato nel codice) al nome del file immagine corrispondente.
 
     category_images = {
-        'altri-spazi': 'altrispazi.jpeg', 'amministrazione-locale': 'amministrazioni.jpeg',
+        'altri-spazi': 'altrispazi.jpeg',
+        'amministrazione-locale': 'amministrazioni.jpeg',
         'anagrafe-e-statistiche': 'anagrafe.jpeg', 'archeologia': 'archeologia.jpeg',
         'architettura-e-urbanistica': 'architettura.jpeg', 'arte': 'arte.jpeg',
         'assistenza-e-sanita': 'sanita.jpeg', 'biblioteche': 'biblioteche.jpeg',
@@ -159,7 +160,8 @@ try:                                            # con try andiamo a gestire even
     # noi abbiamo tutte le immagini quindi questo sarebbe una gestione delle eccezioni. utile per un codice ''sostenibile''.
 
     zone_images = {
-        'BARCA': 'barca.png', 'BERTALIA - NOCE': 'bertalia_noce.png', 'BEVERARA': 'beverara.png',
+        'BARCA': 'barca.png', 
+        'BERTALIA - NOCE': 'bertalia_noce.png', 'BEVERARA': 'beverara.png',
         'BIRRA - BARGELLINO - LAVINO': 'birra_bargellino_lavino.png', 'BOLOGNINA': 'bolognina.png',
         'BORGO PANIGALE': 'borgo_panigale.png', 'CASTELDEBOLE - PONTELUNGO': 'casteldebole_pontelungo.png',
         'CIRENAICA - MASSARENTI - SCANDELLARA': 'cirenaica_massarenti_scandellara.png',
@@ -174,7 +176,7 @@ try:                                            # con try andiamo a gestire even
         'Quartiere sconosciuto': 'fuori_bologna.png'
     }
 
-    default_zone_image = 'default_zone.jpg' # stessa identica cosa di prima. immagine di fallback per le zone di prossimità.
+    default_zone_image = 'default_zone.jpg' # stessa identica cosa di prima. immagine di fallback per le zone di prossimità che in realtà non abbiamo un'immagine di fallback
 
     # ora andiamo a mappare i nomi per poterli ridefinire nella homepage, per non avere i nomi originali ma più ''user-friendly''.
 
@@ -210,7 +212,7 @@ try:                                            # con try andiamo a gestire even
     }
 
 
-    # --- Genera pagine HTML per categoria (nessuna modifica significativa richiesta qui per le statistiche) ---
+    # --- GENERA PAGINE HTML PER LE CATEGORIE ---
     # Questo loop itera su ogni categoria unica identificata nel XML. 
     # Per ogni categoria, verrà generata una pagina HTML separata.
     # tutto quello annidato in questo ciclo for è il cuore della generazione delle pagine HTML per ogni categoria.
@@ -229,7 +231,7 @@ try:                                            # con try andiamo a gestire even
         #  Permette di scrivere blocchi di testo (in questo caso, HTML) includendo variabili Python 
         # direttamente all'interno delle graffe {}. È estremamente comodo per generare HTML.
         # Inoltre, in questo blocchetto andiamo anche a inserire i microdati per la definizione semantica.
-        # In questo caso, stiamo definendo il container, che in questo caso definiamo come ItemList perché
+        # In questo caso, stiamo definendo il container, che definiamo come ItemList perché
         # a livello semantico abbiamo definito una lista di Item che contiene appunto gli eventi. 
         # la costruzione dinamica del contenuto HTML risulta molto utile e facilmente leggibile.
         # richiamiamo il file CSS per lo stile della pagina HTML con class="container" e l'href per il file CSS.
@@ -244,7 +246,7 @@ try:                                            # con try andiamo a gestire even
             <link rel="stylesheet" href="../style.css">
         </head>
         <body>
-            <div class="container" itemscope itemtype="https://schema.org/ItemList">
+            <div class="container">
                 <h1>Eventi nella categoria: {category}</h1>
                 <p><a href="../index.html"><u><b>TORNA ALLA HOMEPAGE</b></u></a></p>
         """
@@ -294,7 +296,7 @@ try:                                            # con try andiamo a gestire even
             for zona_prossimita, events_in_zona in sorted(zone_groups.items()):
                 safe_anchor_name = zona_prossimita.lower().replace(' ', '-').replace('/', '-').replace('.', '').replace(',', '').replace(':', '').replace('(', '').replace(')', '')
                 html_content += f'<h2 id="{safe_anchor_name}">Zona di Prossimità: {zona_prossimita}</h2>\n'
-                html_content += '<div class="events-list">\n'
+                html_content += '<div class="events-list" itemscope itemtype="https://schema.org/ItemList">\n'
                 
                 # entriamo nel ciclo annidato per iterare sugli eventi all'interno della zona di prossimità corrente.
                 # entriamo negli eventi nella lista di zone di prossimità ordinati alfabeticamente.
@@ -612,15 +614,13 @@ try:                                            # con try andiamo a gestire even
     </head>
     <body>
         <div class="container">
-            <h1> BOLOBOOM - Eventi a Bologna
-            <span style="font-size: 0.35em; font-weight: normal; margin-left: 50em;">
+            <h1> BOLOBOOM - Eventi a Bologna </h1>
+           <h2> <span style="font-size: 0.35em; font-weight: normal; margin-right: 15em;"> 
                     <a href="../../file_download/eventi_bologna.json.zip" download class="button">Scarica file JSON</a>
                     <a href="../../file_download/eventi_bologna.xml.zip" download class="button">Scarica file XML</a>
-                </span> 
-            </h1>
+                </span> </h2>
             <p style="font-size: 1.5em; font-weight: normal; margin-right: 10em;"> <b>CLICCA SULLA CATEGORIA DI INTERESSE PER VEDERE GLI EVENTI</b></p>
-            <p><a href="report.html" style="font-size: 1.5em; font-weight: normal; margin-right: 10em;"> 
-            <strong><u>Clicca qui per accedere alla pagina del report</u></strong></a></p> <div class="category-grid">
+            <div class="category-grid">
     """
     #il ciclo for qui serve a generare i link alle pagine delle categorie ll'interno della pagina principale index.html
 
@@ -638,9 +638,10 @@ try:                                            # con try andiamo a gestire even
         """
     
     index_html_content += """
-            </div>
-        </div>
-    </body>
+            </div> <a href="report.html" class="report-line"> 
+                <strong><u>Clicca qui per accedere alla pagina del report</u></strong> 
+            </a>
+        </div> </body>
     </html>
     """
     

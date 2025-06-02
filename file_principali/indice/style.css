@@ -37,10 +37,10 @@ body {
 
 /* Stile per il contenitore principale per centrare il contenuto e dare margini */
 .container {
-    max-width: 1700px;                          /* Larghezza massima per il contenuto */
+    max-width: 1000px;                          /* Larghezza massima per il contenuto */
     margin: 20px auto;                          /* Margine automatico per centrare */
     background-color: #bbc5ce;                /* Sfondo per il contenitore */
-    padding: 30px;                              /* Padding interno per il contenitore */        
+    padding: 50px;                              /* Padding interno per il contenitore */        
     border-radius: 8px;                         /* Bordo arrotondato per il contenitore */
     box-shadow: var(--box-shadow);              /* Ombra leggera per il contenitore */
 }
@@ -52,12 +52,14 @@ h1, h2, h3 {                                            /* Stili per i titoli */
     padding-bottom: 10px;
 }
 
-h1 { font-size: 2.5em; }                            /* Dimensione del titolo principale */
+h1 { font-size: 2.5em;
+     text-align: center; 
+    }                            /* Dimensione del titolo principale */
 h2 { font-size: 2em; }                              /* Dimensione del titolo secondario */
 h3 { font-size: 1.5em; }                            /* Dimensione del titolo terziario */
 
 p {
-    margin-bottom: 10px;                                /* Margine inferiore per i paragrafi */
+    margin-bottom: 10px;                              /* Margine inferiore per i paragrafi */
 }
 
 a {                                                     /* Stile per i link */              
@@ -74,7 +76,7 @@ a:hover {                                               /* Stile per i link al p
 /* Stile per la griglia delle categorie nell'index.html e nelle pagine categoria */
 .category-grid {                                        /* Griglia per le categorie */
     display: grid;                                          /* Usa grid layout per le categorie questo è un valore standard */
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));               
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));               
     gap: 25px;
     margin-top: 30px;
 }
@@ -151,6 +153,7 @@ a:hover {                                               /* Stile per i link al p
     margin-top: 30px;
     display: grid;
     gap: 25px;
+    padding: auto;
 }
 
 /* Stile per ogni "card" di dettaglio evento */
@@ -176,6 +179,14 @@ a:hover {                                               /* Stile per i link al p
 
 .event-detail-card strong {
     color: var(--secondary-color); /* Colore più neutro (NUOVO) */
+}
+
+.report-line {
+    margin-top: 100px;
+    font-size: 1.5em; 
+    font-weight: normal; 
+    margin-right: 10em;
+    display: block;
 }
 
 /* --- NUOVI STILI PER STATISTICHE E REPORT ESTESO --- */
@@ -454,6 +465,7 @@ a:hover {                                               /* Stile per i link al p
     text-decoration: none;
     border-radius: 5px;
     font-family: sans-serif;
+    font-size: 12px; /* Testo più grande */
 }
 
 .button:hover {

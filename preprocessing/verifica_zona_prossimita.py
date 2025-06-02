@@ -2,7 +2,7 @@ from lxml import etree
 import os
 
 # --- Configurazione dei percorsi ---
-BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/'
+BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
 xml_file_path = os.path.join(BASE_DIR, 'eventi_bologna.xml')
 
 print(f"Inizio verifica degli elementi <data-inizio> e <zona-prossimita> nel file: {xml_file_path}\n")
