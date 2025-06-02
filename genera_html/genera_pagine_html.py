@@ -64,6 +64,7 @@ try:                                            # con try andiamo a gestire even
         xml_example_snippet = etree.tostring(first_event_elem[0], pretty_print=True, encoding='unicode') # etree.tostring() converte l'elemento XML in una stringa formattata, con pretty_print=True per renderlo più leggibile
                                                                                                          # e first_event_elem[0] è il primo elemento trovato, [0] serve a prendere il primo elemento della lista restituita da xpath (questo verrà utilizzato nel report)
      #   xml_example_snippet = "\n".join([line.lstrip() for line in xml_example_snippet.split('\n')])     # questa riga serve a rimuovere gli spazi iniziali da ogni riga dell'XML per renderlo più leggibile nel report finale
+                                                                                                         # tuttavia strippare l'xml non ce lo farebbe vedere indentato nello snippet d'esempio
 
         # IL SUCCESSIVO CICLO FOR È IL CUORE DELLA GENERAZIONE DELLE PAGINE HTML
     
