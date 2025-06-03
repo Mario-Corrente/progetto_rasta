@@ -1,7 +1,6 @@
 # Questo codice è utile per convertire dati strutturati in JSON in un formato XML
 # Definisce la funzione `convert_json_to_xml` che legge un file JSON
 # lo converte in XML e lo salva in un file specificato.
-#
 
 import json
 from xml.etree.ElementTree import Element, SubElement, tostring # questa serve a creare gli elementi XML

@@ -1,8 +1,12 @@
+# GIUNGIAMO INFINE AL CODICE 'PRINCIPALE' IN CUI ANDREAMO A GENERARE LE PAGINE HTML
+# NAVIGABILI DALL'UTENTE DOPO IL PREPROCESSING DEI DATI ED ESSERCI ASSICURATI 
+# UN XML ABBASTANZA COMPLETO PER GENERARE LE PAGINE COME AVEVAMO PENSATO,
+# QUINDI PRIMA LA SUDDIVISIONE PER CATEGORIA E POI PER ZONA DI PROSSIMITÀ.
+
 # importiamo le librerie necessarie per la parsificazione del file XML e la generazione delle pagine HTML
 from lxml import etree     # lxml è una libreria per la manipolazione di XML e HTML in Python
 import os                  # os è una libreria standard di Python per interagire con il sistema operativo, utile per gestire i percorsi dei file
 from collections import defaultdict     # defaultdict è una classe di Python che permette di creare dizionari con valori predefiniti, utile per contare eventi per categoria e zona
-from datetime import datetime           # datetime è una libreria standard di Python per lavorare con date e orari (ma alla fine abbiamo deciso di non utilizzare le date)
 import html                             # html è una libreria standard di Python per gestire caratteri speciali HTML, utile per evitare problemi di visualizzazione 
 
 

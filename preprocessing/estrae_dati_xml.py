@@ -1,3 +1,8 @@
+# QUESTO SCRIPT PYTHON SERVE A PRODURRE UN REPORT A TERMINE DELL'ANALISI DELL'XML.
+# CARICA L'XML, TROVA TUTTI GLI EVENTI E ANALIZZA LA PRESENZA E LA VALORIZZAZIONE DEI CAMPI.
+# PER OGNI CAMPO SPECIFICATO IN `fields_to_check`, STAMPA IL NUMERO DI EVENTI VALORIZZATI.
+# INOLTRE PRESENTA UN CONTROLLO PER EVITARE CHE I PLACEHOLDER VENGANO CONSIDERATI COME VALORIZZATI.
+
 from lxml import etree
 import os
 from collections import defaultdict
@@ -36,15 +41,15 @@ try:
     ]
 
     for field in fields_to_check:
-        events_with_valorized_field = root.xpath(f'//evento[{field} and normalize-space({field}) != ""]')
+        events_with_valorized_field = root.xpath(f'//evento[{field} and normalize-space({field}) != ""]') # CONTROLLA SE CI SONO PLACEHOLDER
         count = len(events_with_valorized_field)
         percent = (count / num_total_events) * 100
         print(f"- '{field}': {count}/{num_total_events} valorizzati ({percent:.2f}%)")
-        if count < num_total_events:
-            print(f"  ↳ {num_total_events - count} eventi non hanno il campo '{field}' valorizzato o presente.")
+        if count < num_total_events:                                                        # SE IL NUMERO DI EVENTI CON IL CAMPO VALORIZZATO È MENO DEL TOTALE
+            print(f"  ↳ {num_total_events - count} eventi non hanno il campo '{field}' valorizzato o presente.")   # ALLORA STAMPA IL MESSAGGIO DI AVVISO CON IL NUMERO DI EVENTI MANCANTI
 
     # ========== SEZIONE 2: ANALISI RISPETTO AI VALORI DI DEFAULT ==========
-    print("\n" + "-" * 60)
+    print("\n" + "-" * 60)                                              # È SOLO UN OUTPUT VISIVO PER RENDERE CHIARO IL REPORT A TERMINALE
     print("SEZIONE 2: VERIFICA CONTRO VALORI DI DEFAULT IMPOSTATI")
     print("-" * 60)
 
@@ -74,6 +79,7 @@ try:
 
     valorized_counts = defaultdict(int)
 
+    # QUESTO È IL CICLO PRINCIPALE CHE ANALIZZA OGNI CAMPO PER OGNI EVENTO
     for event_elem in all_events:
         for el in elements_to_check:
             text_values = event_elem.xpath(f'{el}/text()')

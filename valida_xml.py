@@ -1,3 +1,5 @@
+# SEMPLICE SCRIPT PER PASSARE L'XML ALLA DTD E VALIDARLO
+
 from lxml import etree
 import os # Per gestire i percorsi in modo più robusto
 
