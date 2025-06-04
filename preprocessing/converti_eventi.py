@@ -7,6 +7,10 @@ from xml.etree.ElementTree import Element, SubElement, tostring # questa serve a
 from xml.dom import minidom # questa serve a formattare l'XML in modo leggibile
 import os # questa serve per gestire i percorsi dei file in modo indipendente dal sistema operativo
 
+BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
+json_input_file = os.path.join(BASE_DIR, 'eventi_bologna.json')
+xml_output_file = os.path.join(BASE_DIR, 'eventi_bologna.xml')
+
 def convert_json_to_xml(json_file_path, xml_file_path):                     # questa riga serve a definire la funzione di conversione
     try:                                                                    # questa riga serve a gestire le eccezioni
         with open(json_file_path, 'r', encoding='utf-8') as f:              # questa riga serve ad aprire il file JSON
@@ -85,10 +89,7 @@ def convert_json_to_xml(json_file_path, xml_file_path):                     # qu
     
     print(f"Conversione completata! Il file XML è stato salvato come '{xml_file_path}'")
 
-# Percorsi dei file (mantenuti)
-BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
-json_input_file = os.path.join(BASE_DIR, 'eventi_bologna.json')
-xml_output_file = os.path.join(BASE_DIR, 'eventi_bologna.xml')
+
 
 # Esegui la conversione (mantenuta)
 if __name__ == "__main__":

@@ -8,7 +8,7 @@
 from lxml import etree
 import os
 
-# Definisci i percorsi dei tuoi file
+# percorsi
 BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
 xml_file_path = os.path.join(BASE_DIR, 'eventi_bologna.xml')
 

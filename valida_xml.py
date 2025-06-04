@@ -3,9 +3,8 @@
 from lxml import etree
 import os # Per gestire i percorsi in modo più robusto
 
-# Definisci i percorsi dei tuoi file
-# Assicurati che questi percorsi siano corretti per la tua configurazione
-BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/' # Ho mantenuto il percorso corretto che hai ora
+# definiamo i percorsi dei file
+BASE_DIR = '/Users/mariocorrente/Desktop/progetto_rasta/file_principali/'
 xml_file_path = os.path.join(BASE_DIR, 'eventi_bologna.xml')
 dtd_file_path = os.path.join(BASE_DIR, 'eventi_bologna.dtd')
 
@@ -15,7 +14,7 @@ print(f"Usando il DTD: {dtd_file_path}")
 try:
     # 1. Carica il DTD
     with open(dtd_file_path, 'rb') as f:
-        dtd = etree.DTD(f)
+        dtd = etree.DTD(f)              # utilizziamo la libreria lxml con etree.DTD per caricare il DTD
     print("DTD caricato con successo.")
 
     # 2. Parsifica il file XML (senza passare il DTD al parser)

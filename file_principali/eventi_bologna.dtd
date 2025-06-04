@@ -1,7 +1,9 @@
 <!-- DTD SCRITTO SUCCESSIVAMENTE ALL'ANALISI VISIVA DELL'XML PER LA SUA VALIDAZIONE -->
 
-<!ELEMENT eventi (evento+)>
-<!ELEMENT evento (
+<!ELEMENT eventi (evento+)>   <!-- + SIGNIFICA CHE DENTRO EVENTI CI POSSONO ESSERE UNO O PIU' EVENTO -->
+<!-- QUI DICHIARIAMO CHE DENTRO L'ELEMENTO EVENTO, INVECE, CI SONO (O POTREBBERO ESSERCI CON ?) 
+    TUTTI GLI ELEMENTI CHE ABBIAMO TROVATO DOPO L'ANALISI DEL FILE XML. TUTTI ELEMENTI FIGLI DI EVENTO E 'NIPOTI' DI EVENTI -->
+<!ELEMENT evento (                  
     titolo,
     descrizione,
     url,
@@ -9,18 +11,18 @@
     categoria1,
     categoria2?,
     categoria3?,
-    online,
-    data-inizio,
+    online?,
+    data-inizio?,
     data-fine?,
     date-multiple?,
     bologna-estate,
     quartiere?,
     area-metropolitana,
-    zona-prossimita?,
+    zona-prossimita,
     area-statistica?
-)>
-<!ATTLIST evento id CDATA #REQUIRED>
-<!ELEMENT titolo (#PCDATA)>
+)>       <!-- QUESTI SUCCESSIVI SONO LE TIPOLOGIE DI ELEMENTI CHE SONO NELL'ELEMENTO EVENTO -->
+<!ATTLIST evento id CDATA #REQUIRED>       <!-- ATTLIST DICHIARA CHE L'ELEMENTO EVENTO HA UN ATTRIBUTO ID CHE E' OBBLIGATORIO -->
+<!ELEMENT titolo (#PCDATA)>             <!-- PCDATA STA PER "Parsed Character Data", ovvero testo semplice -->
 <!ELEMENT descrizione (#PCDATA)>
 <!ELEMENT url (#PCDATA)>
 <!ELEMENT indirizzo (#PCDATA)>
